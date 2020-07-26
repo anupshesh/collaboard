@@ -11,6 +11,11 @@ colorInput.addEventListener('input',()=>{
 		ctx.strokeStyle = color;
 	});
 
+//Touch listerners
+
+canvas.addEventListener('touchstart', touchstart, false);
+canvas.addEventListener('touchmove', touchmove, false);
+canvas.addEventListener('touchend', touchend, false);
 
 //Variables
 var canvasx = $(canvas).offset().left;
