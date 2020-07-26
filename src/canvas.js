@@ -5,6 +5,12 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var colorInput = document.getElementById("color");
 
+//Color listener
+colorInput.addEventListener('input',()=>{
+	var color = colorInput.value;
+	});
+
+
 //Variables
 var canvasx = $(canvas).offset().left;
 var canvasy = $(canvas).offset().top;
@@ -33,11 +39,9 @@ $(canvas).on('mousemove', function(e) {
         ctx.beginPath();
         if(tooltype=='draw') {
             ctx.globalCompositeOperation = 'source-over';
+		ctx.strokeStyle = color;
             ctx.lineWidth = 3;
-		colorInput.addEventListener('input',()=>{
-			var color = colorInput.value;
-			ctx.strokeStyle = color;
-		});
+		
         } else {
             ctx.globalCompositeOperation = 'destination-out';
             ctx.lineWidth = 50;
