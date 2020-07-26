@@ -18,6 +18,7 @@ var canvasy = $(canvas).offset().top;
 var last_mousex = last_mousey = 0;
 var mousex = mousey = 0;
 var mousedown = false;
+var touchstart = false
 var tooltype = 'draw';
 
 //Mousedown
@@ -57,6 +58,51 @@ $(canvas).on('mousemove', function(e) {
     //Output
     $('#output').html('current: '+mousex+', '+mousey+'<br/>last: '+last_mousex+', '+last_mousey+'<br/>mousedown: '+mousedown);
 });
+
+
+//Touch interactions
+
+//Touchstart
+$(canvas).on('touchstart', function(e) {
+    last_mousex = mousex = parseInt(e.clientX-canvasx);
+	last_mousey = mousey = parseInt(e.clientY-canvasy);
+    touchstart = true;
+});
+
+//Touchend
+$(canvas).on('touchend', function(e) {
+    touchstart = false;
+});
+
+//Mousemove
+$(canvas).on('touchmove', function(e) {
+    mousex = parseInt(e.clientX-canvasx);
+    mousey = parseInt(e.clientY-canvasy);
+    if(touchstart) {
+        ctx.beginPath();
+        if(tooltype=='draw') {
+            ctx.globalCompositeOperation = 'source-over';
+
+            ctx.lineWidth = 3;
+		
+        } else {
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.lineWidth = 50;
+        }
+        ctx.moveTo(last_mousex,last_mousey);
+        ctx.lineTo(mousex,mousey);
+        ctx.lineJoin = ctx.lineCap = 'round';
+        ctx.stroke();
+    }
+    last_mousex = mousex;
+    last_mousey = mousey;
+    //Output
+    $('#output').html('current: '+mousex+', '+mousey+'<br/>last: '+last_mousex+', '+last_mousey+'<br/>touchstart: '+touchstart);
+});
+
+
+
+
 
 //Use draw|erase
 use_tool = function(tool) {
