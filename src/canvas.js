@@ -3,6 +3,7 @@ window.onload = function()
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+var colorInput = document.getElementById("color");
 
 //Variables
 var canvasx = $(canvas).offset().left;
@@ -32,8 +33,11 @@ $(canvas).on('mousemove', function(e) {
         ctx.beginPath();
         if(tooltype=='draw') {
             ctx.globalCompositeOperation = 'source-over';
-            ctx.strokeStyle = 'black';
             ctx.lineWidth = 3;
+		colorInput.addEventListener('input',()=>{
+			var color = colorInput.value;
+			ctx.strokeStyle = color;
+		});
         } else {
             ctx.globalCompositeOperation = 'destination-out';
             ctx.lineWidth = 50;
