@@ -23,6 +23,33 @@ var touchx = touchy = 0;
 var touchstart = false
 var tooltype = 'draw';
 
+
+//Touch interactions
+// Set up touch events for mobile, etc
+canvas.addEventListener("touchstart", function (e) {
+        mousePos = getTouchPos(canvas, e);
+  var touch = e.touches[0];
+  var mouseEvent = new MouseEvent("mousedown", {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+  canvas.dispatchEvent(mouseEvent);
+}, false);
+canvas.addEventListener("touchend", function (e) {
+  var mouseEvent = new MouseEvent("mouseup", {});
+  canvas.dispatchEvent(mouseEvent);
+}, false);
+canvas.addEventListener("touchmove", function (e) {
+  var touch = e.touches[0];
+  var mouseEvent = new MouseEvent("mousemove", {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+  canvas.dispatchEvent(mouseEvent);
+}, false);
+
+
+
 //Mousedown
 $(canvas).on('mousedown', function(e) {
     last_mousex = mousex = parseInt(e.clientX-canvasx);
@@ -61,29 +88,6 @@ $(canvas).on('mousemove', function(e) {
 });
 
 
-//Touch interactions
-// Set up touch events for mobile, etc
-canvas.addEventListener("touchstart", function (e) {
-        mousePos = getTouchPos(canvas, e);
-  var touch = e.touches[0];
-  var mouseEvent = new MouseEvent("mousedown", {
-    clientX: touch.clientX,
-    clientY: touch.clientY
-  });
-  canvas.dispatchEvent(mouseEvent);
-}, false);
-canvas.addEventListener("touchend", function (e) {
-  var mouseEvent = new MouseEvent("mouseup", {});
-  canvas.dispatchEvent(mouseEvent);
-}, false);
-canvas.addEventListener("touchmove", function (e) {
-  var touch = e.touches[0];
-  var mouseEvent = new MouseEvent("mousemove", {
-    clientX: touch.clientX,
-    clientY: touch.clientY
-  });
-  canvas.dispatchEvent(mouseEvent);
-}, false);
 
 
 //Use draw|erase
