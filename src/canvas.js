@@ -11,11 +11,6 @@ colorInput.addEventListener('input',()=>{
 		ctx.strokeStyle = color;
 	});
 
-//Touch listerners
-
-canvas.addEventListener('touchstart', touchstart, false);
-canvas.addEventListener('touchmove', touchmove, false);
-canvas.addEventListener('touchend', touchend, false);
 
 //Variables
 var canvasx = $(canvas).offset().left;
@@ -48,7 +43,6 @@ $(canvas).on('mousemove', function(e) {
         ctx.beginPath();
         if(tooltype=='draw') {
             ctx.globalCompositeOperation = 'source-over';
-
             ctx.lineWidth = 3;
 		
         } else {
@@ -68,46 +62,28 @@ $(canvas).on('mousemove', function(e) {
 
 
 //Touch interactions
-
-//Touchstart
-$(canvas).on('touchstart', function(e) {
-    last_touchx = touchx = parseInt(e.clientX-canvasx);
-	last_touchy = touchy = parseInt(e.clientY-canvasy);
-    touchstart = true;
-});
-
-//Touchend
-$(canvas).on('touchend', function(e) {
-    touchstart = false;
-});
-
-//Mousemove
-$(canvas).on('touchmove', function(e) {
-    touchx = parseInt(e.clientX-canvasx);
-    touchy = parseInt(e.clientY-canvasy);
-    if(touchstart) {
-        ctx.beginPath();
-        if(tooltype=='draw') {
-            ctx.globalCompositeOperation = 'source-over';
-            ctx.lineWidth = 3;
-		
-        } else {
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.lineWidth = 50;
-        }
-        ctx.moveTo(last_mousex,last_mousey);
-        ctx.lineTo(touchx,touchy);
-        ctx.lineJoin = ctx.lineCap = 'round';
-        ctx.stroke();
-    }
-    last_touchx = touchx;
-    last_touchy = touchy;
-    //Output
-    $('#output').html('current: '+touchx+', '+touchy+'<br/>last: '+last_touchx+', '+last_touchy+'<br/>touchstart: '+touchstart);
-});
-
-
-
+// Set up touch events for mobile, etc
+canvas.addEventListener("touchstart", function (e) {
+        mousePos = getTouchPos(canvas, e);
+  var touch = e.touches[0];
+  var mouseEvent = new MouseEvent("mousedown", {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+  canvas.dispatchEvent(mouseEvent);
+}, false);
+canvas.addEventListener("touchend", function (e) {
+  var mouseEvent = new MouseEvent("mouseup", {});
+  canvas.dispatchEvent(mouseEvent);
+}, false);
+canvas.addEventListener("touchmove", function (e) {
+  var touch = e.touches[0];
+  var mouseEvent = new MouseEvent("mousemove", {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+  canvas.dispatchEvent(mouseEvent);
+}, false);
 
 
 //Use draw|erase
