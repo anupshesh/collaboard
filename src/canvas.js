@@ -24,10 +24,10 @@ var touchstart = false
 var tooltype = 'draw';
 
 
-//Touch interactions
+//Touch interactions : src http://bencentra.com/code/2014/12/05/html5-canvas-touch-events.html
 // Set up touch events for mobile, etc
 canvas.addEventListener("touchstart", function (e) {
-        mousePos = getTouchPos(canvas, e);
+        //var mousePos = getTouchPos(canvas, e); // THROWING ERROR // 
   var touch = e.touches[0];
   var mouseEvent = new MouseEvent("mousedown", {
     clientX: touch.clientX,
