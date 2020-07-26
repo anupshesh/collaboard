@@ -18,6 +18,8 @@ var canvasy = $(canvas).offset().top;
 var last_mousex = last_mousey = 0;
 var mousex = mousey = 0;
 var mousedown = false;
+var last_touchx = last_touchy = 0;
+var touchx = touchy = 0;
 var touchstart = false
 var tooltype = 'draw';
 
@@ -64,8 +66,8 @@ $(canvas).on('mousemove', function(e) {
 
 //Touchstart
 $(canvas).on('touchstart', function(e) {
-    last_mousex = mousex = parseInt(e.clientX-canvasx);
-	last_mousey = mousey = parseInt(e.clientY-canvasy);
+    last_touchx = touchx = parseInt(e.clientX-canvasx);
+	last_touchy = touchy = parseInt(e.clientY-canvasy);
     touchstart = true;
 });
 
@@ -76,13 +78,12 @@ $(canvas).on('touchend', function(e) {
 
 //Mousemove
 $(canvas).on('touchmove', function(e) {
-    mousex = parseInt(e.clientX-canvasx);
-    mousey = parseInt(e.clientY-canvasy);
+    touchx = parseInt(e.clientX-canvasx);
+    touchy = parseInt(e.clientY-canvasy);
     if(touchstart) {
         ctx.beginPath();
         if(tooltype=='draw') {
             ctx.globalCompositeOperation = 'source-over';
-
             ctx.lineWidth = 3;
 		
         } else {
@@ -90,14 +91,14 @@ $(canvas).on('touchmove', function(e) {
             ctx.lineWidth = 50;
         }
         ctx.moveTo(last_mousex,last_mousey);
-        ctx.lineTo(mousex,mousey);
+        ctx.lineTo(touchx,touchy);
         ctx.lineJoin = ctx.lineCap = 'round';
         ctx.stroke();
     }
-    last_mousex = mousex;
-    last_mousey = mousey;
+    last_touchx = touchx;
+    last_touchy = touchy;
     //Output
-    $('#output').html('current: '+mousex+', '+mousey+'<br/>last: '+last_mousex+', '+last_mousey+'<br/>touchstart: '+touchstart);
+    $('#output').html('current: '+touchx+', '+touchy+'<br/>last: '+last_touchx+', '+last_touchy+'<br/>touchstart: '+touchstart);
 });
 
 
