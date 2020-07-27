@@ -3,6 +3,8 @@
 	<head>
 
 		<title> Collaboard: Product Demo </title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta charset="utf-8" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 		
@@ -21,19 +23,20 @@
 		<!-- Canvas CSS --> 
 		<script type="text/css" src="src/canvas.css"></script>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+
 
 	</head>
 
 	<body>
 	
-		<div id="whiteboard" class="container">
+		<!-- To control bouncing of screen on touch devices --> 
+	<div id="whiteboard" style="position: fixed">
 			<input type="button" value="draw" onclick="use_tool('draw');" />
 			<input type="button" value="erase" onclick="use_tool('erase');" />
-			<input type="color" id="color" />			
+			<input type="color" id="color"/>			
 			<canvas id="myCanvas" height=720 width=1024> </canvas> 
-		</div>
 
+	</div>
 
 
 	</body>

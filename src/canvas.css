@@ -1,4 +1,6 @@
 #canvas{
-  border: solid 5px blue;  
+	border-style: solid;
+	border-width: 1px; 
+	border-color: blue;  
   width: 100%;
 }
