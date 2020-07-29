@@ -28,6 +28,7 @@ var tooltype = 'draw';
 // Set up touch events for mobile, etc
 canvas.addEventListener("touchstart", function (e) {
   var touch = e.touches[0];
+  e.preventDefault();
   var mouseEvent = new MouseEvent("mousedown", {
     clientX: touch.clientX,
     clientY: touch.clientY
@@ -35,18 +36,19 @@ canvas.addEventListener("touchstart", function (e) {
   canvas.dispatchEvent(mouseEvent);
 }, false);
 canvas.addEventListener("touchend", function (e) {
+  e.preventDefault();
   var mouseEvent = new MouseEvent("mouseup", {});
   canvas.dispatchEvent(mouseEvent);
 }, false);
 canvas.addEventListener("touchmove", function (e) {
   var touch = e.touches[0];
+  e.preventDefault();
   var mouseEvent = new MouseEvent("mousemove", {
     clientX: touch.clientX,
     clientY: touch.clientY
   });
   canvas.dispatchEvent(mouseEvent);
 }, false);
-
 
 
 //Mousedown
