@@ -1,0 +1,30 @@
+{
+  "name": "collaboard",
+  "version": "1.0.0",
+  "description": "The collaborative whiteboard application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anupshesh/collaboard.git"
+  },
+  "keywords": [
+    "canvas",
+    "whiteboard",
+    "collaboration",
+    "collaboard"
+  ],
+  "author": "Anup Sheshadri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anupshesh/collaboard/issues"
+  },
+  "homepage": "https://github.com/anupshesh/collaboard#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}
