@@ -18,7 +18,7 @@ window.onload = function() // to load an app on opening the page (HTML)
   var tooltype = 'draw';
   var color = 'black';
   //Establishing server-socket-client connection
-  var socket = io.connect('localhost:3000');
+  var socket = io.connect(':3000');
   //socket.on('mouse',newDrawing);
 /* 
   

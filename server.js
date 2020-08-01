@@ -15,9 +15,9 @@ function newConnection(socket){
 	console.log('new connection:' + socket.id);
 	socket.on('drawing',mouseMsg);
 	function mouseMsg(data){
-		io.sockets.emit('mouse', data);
+		//io.sockets.emit('mouse', data);
 		//***if we want the communication specific to socket***//
-		//socket.broadcast.emit('mouse', data); 
+		socket.broadcast.emit('mouse', data); 
 		console.log(data);
 	}
 }
