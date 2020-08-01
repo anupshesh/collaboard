@@ -18,7 +18,7 @@ window.onload = function() // to load an app on opening the page (HTML)
   var tooltype = 'draw';
   var color = 'black';
   //Establishing server-socket-client connection
-  var socket = io.connect('http://localhost:3000/');
+  var socket = io.connect('localhost:3000');
   //socket.on('mouse',newDrawing);
 /* 
   
@@ -139,7 +139,7 @@ window.onload = function() // to load an app on opening the page (HTML)
         //SENDING DATA TO SERVER
         $(canvas).on('mousemove', function(e) {
            if(mousedown) {
-              console.log('Sending: ' + (e.clientX-canvasx) + ',' + e.clientY + ',' + tooltype + ',' + mousedown + ',' + ctx.strokeStyle + ',' + mousex + ',' +last_mousex);
+              console.log('Sending: ' + e.clientX + ',' + e.clientY + ',' + tooltype + ',' + mousedown + ',' + ctx.strokeStyle + ',' + mousex + ',' +last_mousex);
 
               var data = {
                 x: e.clientX,
