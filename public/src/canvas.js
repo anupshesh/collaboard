@@ -19,46 +19,6 @@ window.onload = function() // to load an app on opening the page (HTML)
   var color = 'black';
   //Establishing server-socket-client connection
   var socket = io.connect(':3000');
-  //socket.on('mouse',newDrawing);
-/* 
-  
-  //Drawing from collaborated client/user
-  function newDrawing(data){
-    var lst_mousex;
-    var lst_mousey;
-    var msx;
-    var msy;
-    lst_mousex = msx = parseInt(data.x-canvasx);
-    lst_mousey = msy = parseInt(data.y-canvasy);
-    var tool = data.useTool;
-    var msdown = data.useMouse
-    //Mousemove
-    //var clientEvent = new MouseEvent('mousemove', {
-      $(canvas).on("mousemove", function(e) {
-          msx = parseInt(e.clientX-canvasx);
-          msy = parseInt(e.clientY-canvasy);
-          if(msdown) {
-              ctx.beginPath();
-              if(tool=='draw') {
-                  ctx.globalCompositeOperation = 'source-over';
-                  ctx.lineWidth = 3;
-                } else {
-                  ctx.globalCompositeOperation = 'destination-out';
-                  ctx.lineWidth = 50;
-                }
-              ctx.moveTo(lst_mousex,lst_mousey);
-              ctx.lineTo(msx,msy);
-              ctx.lineJoin = ctx.lineCap = 'round';
-              ctx.stroke();
-            }
-        lst_mousex = msx;
-        lst_mousey = msy;
-
-        //Output
-        $('#output').html('current: '+msx+', '+msy+'<br/>last: '+lst_mousex+', '+lst_mousey+'<br/>mousedown: '+msdown);
-      });
-    }
-*/
 
 
 //Color listener
@@ -152,7 +112,7 @@ window.onload = function() // to load an app on opening the page (HTML)
             }
         });
 
-    // receiving message from the server    
+    //RECEIVING DATA FROM SERVER    
     socket.on('mouse',newDrawing);
     function newDrawing(data){
       ctx.strokeStyle = data.pencolor;
@@ -161,16 +121,16 @@ window.onload = function() // to load an app on opening the page (HTML)
       var msx;
       var msy;
 
-      msx = parseInt(data.x-canvasx);
-      msy = parseInt(data.y-canvasy);
+      lst_mousex = msx = parseInt(data.x-canvasx);
+      lst_mousey = msy = parseInt(data.y-canvasy);
       var use_tool = data.useTool;
       var msdown = data.useMouse;
       console.log('Received: ' + data.x + ',' + data.y + ',' + use_tool + ',' + msdown + ',' + ctx.strokeStyle)
 
-        //$(canvas).on('mousemove', function(e) {
-          //  msx = parseInt(e.clientX-canvasx);
-            //msy = parseInt(e.clientY-canvasy);
             if(msdown) {
+              msx = parseInt(data.x-canvasx);
+              msy = parseInt(data.y-canvasy);
+
                 ctx.beginPath();
                 if(use_tool=='draw') {
                     ctx.globalCompositeOperation = 'source-over';
@@ -184,10 +144,11 @@ window.onload = function() // to load an app on opening the page (HTML)
               ctx.lineJoin = ctx.lineCap = 'round';
               ctx.stroke();
 
-
-            }
             lst_mousex = msx;
             lst_mousey = msy;
+
+            }
+            
 
             //Output
             $('#output').html('current: '+msx+', '+msy+'<br/>last: '+lst_mousex+', '+lst_mousey+'<br/>mousedown: '+msdown);
