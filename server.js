@@ -13,7 +13,7 @@ io.sockets.on('connection', newConnection);
 
 function newConnection(socket){
 	console.log('new connection:' + socket.id);
-	socket.on('mousePos',mouseMsg);
+	socket.on('drawing',mouseMsg);
 	function mouseMsg(data){
 		io.sockets.emit('mouse', data);
 		//***if we want the communication specific to socket***//
